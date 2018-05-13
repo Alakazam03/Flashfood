@@ -10,7 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 build 'rundecktest'
-                sh 'node app.js'
+                sh 'node apptest.js'
                 build 'containerstop'
             }
         }
