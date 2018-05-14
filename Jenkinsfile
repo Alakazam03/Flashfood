@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 build 'rundecktest'
-                sh 'node apptest.js'
+                sh 'mocha apptest.js'
                 build 'containerstop'
             }
         }
