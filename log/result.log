@@ -1,0 +1,24 @@
+{"index":{"index":"flashbot","_id":2},"level":"info","message":"","timestamp":"12:10:43 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Good day! I'm Transformer Sardar , a virtual butler , tailored as per you food preferences from Baba Da Dhaba","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:10:43 AM"}
+{"index":{"index":"flashbot","_id":3},"level":"info","message":"","timestamp":"12:11:17 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Greetings! I'm Transformer Sardar , a virtual butler , tailored as per you food preferences from Baba Da Dhaba","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:11:17 AM"}
+{"index":{"index":"flashbot","_id":2},"level":"info","message":"","timestamp":"12:17:26 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Greetings! I'm Transformer Sardar. I can help you order some tasty food from Baba Da Dhaba. Just say the word.","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:17:26 AM"}
+{"index":{"index":"flashbot","_id":3},"level":"info","message":"","timestamp":"12:21:49 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Greetings! I'm Transformer Sardar , a virtual butler , tailored as per you food preferences from Baba Da Dhaba","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:21:49 AM"}
+{"index":{"index":"flashbot","_id":4},"level":"info","message":"","timestamp":"12:26:31 AM"}
+{"type":"api-call","call_name":"Vegoffers","method":"GET","text_entry":"Here are the awesome offers for you!","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:26:31 AM"}
+{"index":{"index":"flashbot","_id":2},"level":"info","message":"","timestamp":"12:33:17 AM"}
+{"type":"api-call","call_name":"NonVegoffers","method":"GET","text_entry":"Here are the awesome offers for you!","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:33:17 AM"}
+{"index":{"index":"flashbot","_id":3},"level":"info","message":"","timestamp":"12:33:28 AM"}
+{"type":"api-call","call_name":"Vegoffers","method":"GET","text_entry":"Here are the awesome offers for you!","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:33:28 AM"}
+{"index":{"index":"flashbot","_id":2},"level":"info","message":"","timestamp":"12:36:50 AM"}
+{"type":"api-call","call_name":"NonVegoffers","method":"GET","text_entry":"Here are the awesome offers for you!","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:36:50 AM"}
+{"index":{"index":"flashbot","_id":3},"level":"info","message":"","timestamp":"12:36:57 AM"}
+{"type":"api-call","call_name":"Vegoffers","method":"GET","text_entry":"Here are the awesome offers for you!","sender_id":"1389212674465596","level":"info","message":"","timestamp":"12:36:57 AM"}
+{"index":{"index":"flashbot","_id":2},"level":"info","message":"","timestamp":"2:42:43 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Greeting! I'm Transformer Sardar. I can help you satisfy your taste buds by ordering some tasty food from Baba Da Dhaba.","sender_id":"1699572286720160","level":"info","message":"","timestamp":"2:42:43 AM"}
+{"index":{"index":"flashbot","_id":3},"level":"info","message":"","timestamp":"2:44:38 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Hi! I'm Transformer Sardar. I can help you satisfy your taste buds by ordering some tasty food from Baba Da Dhaba.","sender_id":"1699572286720160","level":"info","message":"","timestamp":"2:44:38 AM"}
+{"index":{"index":"flashbot","_id":4},"level":"info","message":"","timestamp":"2:49:46 AM"}
+{"type":"api-call","call_name":"user_status","method":"GET","text_entry":"Good day! I'm Transformer Sardar , a virtual butler , tailored as per you food preferences from Baba Da Dhaba","sender_id":"1699572286720160","level":"info","message":"","timestamp":"2:49:46 AM"}

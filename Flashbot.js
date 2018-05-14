@@ -9,10 +9,57 @@ var http = require('http');
 var Promise = require("bluebird");
 var request_1 = Promise.promisifyAll(require("request"));
 
-var activelink ='https://b831c2b1.ngrok.io/';
-var recommendationLink = 'https://b831c2b1.ngrok.io/';
+var activelink ='https://cc2eee57.ngrok.io/';
+var recommendationLink = 'https://cc2eee57.ngrok.io/';
 
-let token = 'EAAHdua7I9ZAsBAOyIhP5vyDAxWzjQjX7OsRYogfA4tgI8ZA5JO84IjUV8glnio1ZAT4nPvAu2uscAu4NcSHoAgIUQWnDXldwyhEro7jlfjtAZABnu1epU9pZBZAZCGPVFp1cUdoWk1GOZA743blIrwbCVGjwclpFUnGaG6tW79GcSgZDZD';
+
+let token = 'EAAHdua7I9ZAsBANZAgdxi4q9ZBEB0J5pdYYJMyMztKZBv9BV9KNNgYbc3tXfVLo11kpU9BXbalNaEENwbLQ2pIZC0TTbmvniZA7YdSNZC0CiBLICmyVe944VO8wBA2gmtlpRZAZBBsnizkZB3jOrh6RZBEgKFC5LR8WWbGkHxdX5dSFCQZDZD';
+
+
+
+// logging api-calls 
+
+
+var id = 4
+//function log -- log into file result.log
+function log(sender, api_call, tag, method, aiText){
+  id += 1;
+//  logger.info({"index":{"index":"flashbot", "_id":id}, "level":'info', 'message':"", "timemstamp":time})
+//  logger.info({"type":'api-call', "call_name":tag, "method":method, "text_entry":aiText, "sender_id":sender })
+  var messageData = {
+            "index": {
+              "index": "flashbot",
+              "_id": id,
+            },
+              "level":'info', 
+              'message':"", 
+         
+              }
+            ;
+
+  var messageData2 = {
+          "type": 'api-call',
+          "call_name":tag,
+          "method": method,
+          "text_entry": aiText,
+          "sender_id": sender,
+          "level":'info', 
+          "message":"",
+         
+  };
+
+  callPostlog('logging', 'node-code', messageData, 'log')
+  callPostlog('logging', 'node-code', messageData2, 'logging');
+  }
+
+
+
+
+
+
+
+
+
 
 
 // The rest of the code implements the routes for our Express server.
@@ -49,6 +96,38 @@ app.get('/', function(req, res) {
 });
 
 
+app.post('/dynamicOffers', function(req, res) {
+	console.log(req);
+  console.log(req.body.sender)
+ // var body = (req.body.sender)
+  console.log("df")
+  console.log(req.body.offers)
+  var a = JSON.parse(req.body.offers)
+  console.log(a[0]["dish"])
+     var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
+        //  console.log(body.dish)
+        console.log(req.body.offers.length)
+            for(var i=0; i<5; i++){
+                dish.push(a[i]["dish"] + " - Rs. " );
+                link.push(a[i]["link"])
+                console.log('dish' + dish)
+                console.log(a[i]["dish"])
+                //ferPrice.push(body[i]["offerPrice"])
+                originalPrice.push(a[i]["originalPrice"])
+                restName.push(a[i]["restName"]);
+            }
+
+         console.log(dish);
+         console.log(originalPrice);
+         console.log(restName)
+         for(var i=0; i<2; i++){
+            var s = ['1699572286720160', '1389212674465596']
+            console.log("id" + req.body.sender[i])
+            dataRequest(s[i], dish, link, originalPrice, restName); 
+          }
+
+})
+
 //offers
 app.get('/offers',function(req,res){
   var userId=req.body.id;
@@ -61,6 +140,7 @@ app.get('/offers',function(req,res){
     //rest
     sendButton(userId,["postback","postback"],aiText,["quickBuy:"+offerId,"Accompaniments:"+offerId],["Quick Buy","Accompliments"],tall);
   }
+  log(userId, api_call, "offers", "GET", aiText);
   res.sendStatus(200);
 });
 
@@ -124,7 +204,7 @@ function sendMessage(event){
   let apiai = apiaiApp.textRequest(text, {
           sessionId: sender // use any arbitrary id
         });
-
+  
 
   //sending response to facebook
   apiai.on('response', (response) => {
@@ -132,12 +212,12 @@ function sendMessage(event){
           var condition=response.result.metadata.intentName
           var aiText=response.result.fulfillment.speech;
           var operation;
-
+          
           if(condition==='Greeting!'){
             operation=activelink + 'getUser/' + sender;
             console.log(operation)
             callCondition("user_status",sender,operation,aiText);
-
+            
           }
 
           else if(response.result.action  === 'show.offer'){
@@ -172,7 +252,7 @@ function sendMessage(event){
 
           //popular offers
           else if(response.result.action === 'popular.offer'){
-
+              
               var operation = activelink + "showPopulars/" + sender;
               callCondition("showPopulars", sender, operation, "Here are the popular offers in your area!")
 
@@ -242,20 +322,22 @@ function receivedPostback(event) {
 
 
                         case 'VEG_OFFERS':
-                              //callredis
-                              console.log(payload + " sender: " + sender);
+                              //callred
+                                console.log(payload + " sender: " + sender);
+                              var operation = activelink + "offers/" + sender + "/Veg";
+                              callCondition("Vegoffers", sender, operation, "Here are the awesome offers for you!")
                         break;
                         case 'NON_VEG_OFFERS':
                         //callredis
                               console.log(payload + " sender: " + sender);
-                              var operation = activelink + "getOffers/" + sender;
-                              callCondition("offers", sender, operation, "Here are the awesome offers for you!")
+                              var operation = activelink + "offers/" + sender + "/Non-Veg";
+                              callCondition("NonVegoffers", sender, operation, "Here are the awesome offers for you!")
                         break;
                         case 'UNSUBSCRIBE':
                               console.log(payload + " event: " + sender);
                         break;
                         case 'SUBSCRIBE':
-                          //ask name
+                          //ask name 
                           console.log(payload + "event:" + sender);
                           var messageData={
                             ID:sender,
@@ -303,7 +385,7 @@ function receivedPostback(event) {
             if (response.result.action === "set.location") {
                 aiText = response.result.fulfillment.speech;
                 sendTextMessage(sender,aiText);
-
+               
             }else if (response.result.action === "process.card") {
                 console.log(response.result);
                 aiText = response.result.fulfillment.speech;
@@ -339,6 +421,11 @@ function callCondition(tags,sender,operation,aiText){
     var body=(res.body);
     console.log(res.body);
     if(err) throw err;
+
+    //logging
+    log(sender, 'api_call', tags, "GET", aiText);
+
+
     if(tags==="user_status"){
       body=JSON.parse(body);
       if(body.subscribed===0){
@@ -362,7 +449,7 @@ function callCondition(tags,sender,operation,aiText){
         body=JSON.parse(body);
          console.log(body.length);
          if(body.length != 0){
-
+         
             var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
 
             for(var i=0; i<body.length; i++){
@@ -376,7 +463,68 @@ function callCondition(tags,sender,operation,aiText){
          console.log(dish);
          console.log(originalPrice);
          console.log(restName)
-         dataRequest(sender, dish, link, originalPrice, restName);
+         dataRequest(sender, dish, link, originalPrice, restName); 
+       }
+
+       else{
+
+          sendTextMessage(sender, "Sorry! Right now, we don't have any offers available.")
+       }
+
+
+      }
+
+       else if(tags==="NonVegoffers"){
+         //console.log("offers response"+res.body);
+        body=JSON.parse(body);
+         console.log(body.length);
+         if(body.length != 0){
+         
+            var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
+
+            for(var i=0; i<body.length; i++){
+                dish.push(body[i]["dish"] + " - Rs. " + body[i]["offerPrice"]);
+                link.push(body[i]["link"])
+                //ferPrice.push(body[i]["offerPrice"])
+                originalPrice.push(body[i]["originalPrice"])
+                restName.push(body[i]["restName"]);
+            }
+
+         console.log(dish);
+         console.log(originalPrice);
+         console.log(restName)
+         dataRequest(sender, dish, link, originalPrice, restName); 
+       }
+
+       else{
+
+          sendTextMessage(sender, "Sorry! Right now, we don't have any offers available.")
+       }
+
+
+      }
+
+
+       else if(tags==="Vegoffers"){
+         //console.log("offers response"+res.body);
+        body=JSON.parse(body);
+         console.log(body.length);
+         if(body.length != 0){
+         
+            var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
+
+            for(var i=0; i<body.length; i++){
+                dish.push(body[i]["dish"] + " - Rs. " + body[i]["offerPrice"]);
+                link.push(body[i]["link"])
+                //ferPrice.push(body[i]["offerPrice"])
+                originalPrice.push(body[i]["originalPrice"])
+                restName.push(body[i]["restName"]);
+            }
+
+         console.log(dish);
+         console.log(originalPrice);
+         console.log(restName)
+         dataRequest(sender, dish, link, originalPrice, restName); 
        }
 
        else{
@@ -400,15 +548,15 @@ function callCondition(tags,sender,operation,aiText){
               for(var i=0; i<body['dish'].length; i++){
                 console.log(body['dish'][i])
                 c += '('+ body['dish'][i]+')'+' x '+ body['qty'][i]+ ' = ' + body['price'][i] * body['qty'][i] +"\n";
-
+                
               }
               console.log(c)
 
             }
         }
+        
 
-
-
+       
         sendButton(sender, ["postback", "postback"],c, ["getOffers", "CONFIRM"], ["More Offers", "Confirm"], "tall");
       }
 
@@ -418,7 +566,7 @@ function callCondition(tags,sender,operation,aiText){
          body=JSON.parse(body);
          console.log(body.length);
          if(body.length != 0){
-
+         
             var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
 
             for(var i=0; i<body.length; i++){
@@ -432,7 +580,7 @@ function callCondition(tags,sender,operation,aiText){
          console.log(dish);
          console.log(originalPrice);
          console.log(restName)
-         dataRequest(sender, dish, link, originalPrice, restName);
+         dataRequest(sender, dish, link, originalPrice, restName); 
        }
 
        else{
@@ -448,7 +596,7 @@ function callCondition(tags,sender,operation,aiText){
              body=JSON.parse(body);
          console.log(body.length);
          if(body.length != 0){
-
+         
             var dish = [], link =[], offerPrice =[], originalPrice=[], restName=[];
 
             for(var i=0; i<body.length; i++){
@@ -462,7 +610,7 @@ function callCondition(tags,sender,operation,aiText){
          console.log(dish);
          console.log(originalPrice);
          console.log(restName)
-         dataRequest(sender, dish, link, originalPrice, restName);
+         dataRequest(sender, dish, link, originalPrice, restName); 
        }
 
        else{
@@ -491,9 +639,9 @@ function callCondition(tags,sender,operation,aiText){
                 dish.push(body['dish'][i])
                 qty.push(body['qty'][i])
                 price.push(body['price'][i])
-
+                
               }
-
+              
             }
 
             else{
@@ -535,7 +683,7 @@ function sendReciept(recipientID,newdiscount,name,total,titles,quantity,price,ad
                         attachment:{
                                 type:"template",
                                 payload:{
-
+                                    
                                         template_type:"receipt",
                                         recipient_name:Name,
                                         order_number:recipientID,
@@ -584,9 +732,8 @@ function makeJsonreceipt(title,quantity,price){
 
                 image_url:"https://goo.gl/images/PKrUUJ"
 
+           }
 
-
-                }
         return elements;
 }
 
@@ -607,6 +754,26 @@ function makeJson(title,imageurl){
         return elements;
 }
 
+
+function callPostlog(tag,sender, messageData,callName){
+    console.log(messageData + tag)
+    request({
+      uri:'https://b203f354.ngrok.io/' + callName ,
+      method:'POST',
+      json: messageData
+    }, function(error, response, body){
+      if(error) throw error;
+      //console.log(uri)
+      console.log(messageData)
+
+      if(tag==='logging'){
+        console.log(response.body);
+      }
+
+    }
+
+    )}
+
 function callPost(tag,sender, messageData,callName){
     console.log(messageData + tag)
     request({
@@ -615,6 +782,14 @@ function callPost(tag,sender, messageData,callName){
       json: messageData
     }, function(error, response, body){
       if(error) throw error;
+
+      if(tag==='logging'){
+        console.log(response.body);
+      }
+      //logging
+      log(sender, 'api_call', tag, "POST", "no-text");
+
+
       console.log("fefd"+JSON.stringify(response.body));
       var result=(response.body);
       if(tag==='greeting'){
@@ -669,6 +844,8 @@ function callPost(tag,sender, messageData,callName){
             //console.log(res.calls)
             var response = JSON.parse(res.body)
             console.log('vava' + res.body)
+            log(sender, 'api_call', response.tags, "GET", response.status)
+
             if(response.status==='shut_down'){
                 sendTextMessage(sender,"sorry, store near you is shut down")
 
@@ -882,6 +1059,7 @@ function sendButton(recipientId,type,text,payload,caption,size){
                         id:recipientId
                 },
                 message:{
+
                         attachment:{
                                 type:"template",
                                 payload:{
