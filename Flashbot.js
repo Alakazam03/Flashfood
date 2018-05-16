@@ -9,8 +9,8 @@ var http = require('http');
 var Promise = require("bluebird");
 var request_1 = Promise.promisifyAll(require("request"));
 
-var activelink ='https://cc2eee57.ngrok.io/';
-var recommendationLink = 'https://cc2eee57.ngrok.io/';
+var activelink ='https://ed418836.ngrok.io';
+var recommendationLink = 'https://ed418836.ngrok.io';
 
 
 let token = 'EAAHdua7I9ZAsBANZAgdxi4q9ZBEB0J5pdYYJMyMztKZBv9BV9KNNgYbc3tXfVLo11kpU9BXbalNaEENwbLQ2pIZC0TTbmvniZA7YdSNZC0CiBLICmyVe944VO8wBA2gmtlpRZAZBBsnizkZB3jOrh6RZBEgKFC5LR8WWbGkHxdX5dSFCQZDZD';
@@ -758,7 +758,7 @@ function makeJson(title,imageurl){
 function callPostlog(tag,sender, messageData,callName){
     console.log(messageData + tag)
     request({
-      uri:'https://b203f354.ngrok.io/' + callName ,
+      uri:'https://6c95ea00.ngrok.io/' + callName ,
       method:'POST',
       json: messageData
     }, function(error, response, body){
