@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
@@ -412,7 +412,7 @@ function receivedPostback(event) {
 
 
 //Api calls
-function callCondition(tags,sender,operation,aiText){
+/*function callCondition(tags,sender,operation,aiText){
   console.log(operation + tags)
   request_1.getAsync({
     url:operation,
@@ -1227,4 +1227,4 @@ function callSendAPI(messageData) {
 
 var server = app.listen(process.env.PORT || 5000, function () {
         console.log("Listening on port %s", server.address().port);
-});
+});*/
