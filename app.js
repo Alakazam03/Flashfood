@@ -1,4 +1,4 @@
-const request = require('request');
+/*const request = require('request');
 
 var activelink = 'https://cc2eee57.ngrok.io/'
 
@@ -33,3 +33,4 @@ module.exports =  function(sender, messageData){
 	})
 		return "Successfully added dishes";
 	}
+*/
