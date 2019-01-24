@@ -1,6 +1,7 @@
-/*const request = require('request');
+const request = require('request');
+console.log("trying jenkins");
 
-var activelink = 'https://cc2eee57.ngrok.io/'
+/*var activelink = 'https://cc2eee57.ngrok.io/'
 
 module.exports =  function(sender, messageData){
 	  
